@@ -1,4 +1,5 @@
-<html><head>
+<html>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,13 +25,18 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- Add DataPicker -->
-    <script type="text/javascript" src="/bower_components/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
-    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
-  </head><body id="page-top" class="index">
+    <title>jQuery UI Datepicker - Default functionality</title>
+    <link rel="stylesheet" href="/jquery-ui-1.12.1.custom/jquery-ui.css">
+    <link rel="stylesheet" href="/jquery-ui-1.12.1.custom/style.css">
+    <script src="jquery-ui-1.12.1.custom/jquery-1.12.4.js"></script>
+    <script src="jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script>
+    $( function() {
+      $( "#datepicker" ).datepicker();
+    } );
+    </script>
+  </head>
+  <body id="page-top" class="index">
     <!-- Navigation -->
     <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
       <div class="container">
@@ -127,30 +133,11 @@
           <div class="col-md-6"></div>
           <div class="col-md-6">
             <!-- DataPiker -->
-              <div class="container">
-                  <div class="row">
-                      <div class="col-sm-6">
-                          <div class="form-group">
-                              <div class="input-group date" id="datetimepicker1">
-                                  <input type="text" class="form-control">
-                                  <span class="input-group-addon">
-                                      <span class="glyphicon glyphicon-calendar"></span>
-                                  </span>
-                              </div>
-                          </div>
-                      </div>
-                      <script type="text/javascript">
-                          $(function () {
-                              $('#datetimepicker1').datetimepicker();
-                          });
-                      </script>
-                  </div>
-              </div>
+              <p>Date: <input type="text" id="datepicker"></p>
             <!--DataPickerFIM-->
           </div>
         </div>
       </div>
     </div>
-  
-
-</body></html>
+  </body>
+</html>
