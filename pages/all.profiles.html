@@ -1,0 +1,30 @@
+<nav class="allprofiles-nav">
+
+</nav>
+
+<section id="TIPO1" class="bg-light-gray fix-padding-top">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="section-heading">PERFIL TIPO 1</h2>
+        <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4" ng-repeat="profile in profiles">
+        <div class="team-member">
+          <img ng-src="{{ profile.photo }}" class="img-responsive img-circle" alt="">
+          <h4>{{profile.name}}</h4>
+          <p class="text-muted">{{profile.role}}</p>
+          <a class="btn btn-primary">Contatar</a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 text-center">
+        <p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis,
+          totam corporis ea, alias ut unde.</p>
+      </div>
+    </div>
+  </div>
+</section>
