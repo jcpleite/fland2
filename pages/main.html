@@ -146,12 +146,12 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-4" ng-repeat="profile in profiles">
+            <div class="col-sm-4" ng-repeat="profile in profiles | limitTo: 3">
                 <div class="team-member">
                 <img ng-src="{{ profile.photo }}" class="img-responsive img-circle" alt="">
                 <h4>{{profile.name}}</h4>
                 <p class="text-muted">{{profile.role}}</p>
-                <a class="btn btn-primary">Contatar</a>
+                <a class="btn btn-primary" ng-href="#!profile/{{profile.id}}">Contatar</a>
                 </div>
             </div>
         </div>
