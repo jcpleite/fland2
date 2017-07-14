@@ -2,65 +2,75 @@
 
 <div class="section individual-profile">
   <div class="container">
-    <div class="row" ng-show="profile">
-      <div class="col-md-8">
-        <h1>A title {{ id }}</h1>
-        <h3>A subtitle</h3>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-          natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-          eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate
-          eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis
-          pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.</p>
-      </div>
-      <div class="col-md-4">
-        <div class="row">
-          <div class="col-md-12">
-            <img ng-src="{{ profile.photo }}" class="img-responsive img-thumbnail img-center">
+    <div ng-show="profile">
+      <div class="row" id="main">
+        <div class="col-md-4 pull-right" id="right-panel">
+          <div class="row">
+            <div class="col-sm-12">
+              <div>
+                <br>
+                <img ng-src="{{ profile.photo }}" class="img-responsive img-thumbnail img-circle img-center">
+                <br>
+                <div  class="align-center">
+                  <jk-rating-stars max-rating="5" rating="ctrl.rating" read-only="ctrl.readOnly" on-rating="ctrl.onRating(rating)" ></jk-rating-stars>
+                </div>
+                
+                <h2 class="text-center">{{profile.name}}</h2>
+
+                <br>
+                <p>{{profile.expertise}}</p>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <p>{{profile.experienceinyears}} anos de experiência</p>
+              <br>
+              <strong><h5>Histórico profissional</h5></strong>
+              <p>{{profile.experiences}}</p>
+              <br>
+              <p>{{profile.usesinflander}} atendimentos Fland desde 2016</p>
+              <br>
+              <p>R$ {{profile.price}} por minuto</p>
+              <br>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="row">
-              <div class="col-sm-12">
-                <h4>{{profile.name}}</h4>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <p>ID {{profile.id}}</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <p>ROLE {{profile.role}}</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <p>Teste</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <p>Teste</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <p>Teste</p>
-              </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button class="btn btn-primary btn-contact">Contatar</button>
+              <br>
+              <br>
             </div>
           </div>
         </div>
+        <div class="col-sm-8" id="left-panel">
+          <div class="row">
+            <div class="col-md-12">
+              <h1>{{profile.shortdescription}}</h1>
+              <br>
+              <br>
+              <p>{{profile.description}}</p>
+              <br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <daypilot-navigator id="navi" daypilot-config="navigatorConfig"></daypilot-navigator>
+            </div>
+            <div class="col-sm-9">
+              <daypilot-calendar id="dp" config="config" events="events"></daypilot-calendar>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="row" ng-show="!profile">
-      <h3>Esse perfil não existe :(</h3>
-    </div>
-    <div class="row">
-      <div class="col-sm-2 col-offset-sm-10">
-        <a href="#!allprofiles" class="btn btn-primary">Voltar</a>
+      <div class="row" ng-show="!profile">
+        <h3>Esse perfil não existe :(</h3>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 col-offset-sm-10">
+          <br>
+          <a href="#!allprofiles" class="btn btn-primary">Voltar</a>
+          <br>
+          <br> 
+        </div>
       </div>
     </div>
   </div>
-</div>

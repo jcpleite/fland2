@@ -1,4 +1,6 @@
-var App = angular.module("flandApp", ['ngRoute']);
+var App = angular.module("flandApp", ['ngRoute', 'jkAngularRatingStars', 'daypilot']);
+
+// http://52.55.165.53/fland/index.php/produto/engenheiro-de-desenvolvimento/
 
 App.config(function($routeProvider) {
     $routeProvider
@@ -21,14 +23,39 @@ App.config(function($routeProvider) {
 });
 
 App.factory('Allprofiles', function(){
-  return [
-    {name: "Adam", role: "Photographer", photo: "img/team/2.jpg", id:"1"},
-    {name: "John", role: "Musician", photo: "img/team/3.jpg", id:"2"},
-    {name: "Sam", role: "Actor", photo: "img/team/1.jpg", id:"3"},
-    {name: "Rachel", role: "Web Developer", photo: "img/team/3.jpg", id:"4"},
-    {name: "Joe", role: "Dancer", photo: "img/team/2.jpg", id:"5"},
-    {name: "Francis", role: "Psychology", photo: "img/team/1.jpg", id:"6"}
-  ]
+  // return [
+  //   { name: "Mariana Souza", 
+  //     role: "Dermatologista", 
+  //     photo: "img/team/1.jpg", 
+  //     id:"1", 
+  //     experienceinyears: "14", 
+  //     shortdescription: "Como avaliar um tratamento de estética facial para prevenir o envelhecimento?",
+  //     specialization: `
+  //       Especialista  em tratamentos faciais e estética de pele com Radiofrequência, peeling,  melasma, laser e botox 
+  //     `,
+  //     description: `
+  //       Sou dermatologista com vasta experiencia em beleza e estica, tendo aplicado botox facial em mais que 600 pessoas nos últimos 15 anos. Trabalhei 4 anos numa clinica de beleza no Jardins em São Paulo, e os últimos 10 anos com clinica própria em Belo Horizonte. Tenho trabalhado com atores e famosos e com pessoas que procuram corrigir falhas estéticas. Antes de iniciar um tratamento como botox, laser ou outro procedimento de estética facial, ajudarei você a entender a diferença entre rugas, linhas de expressão, manchas, acne, poros dilatados, olheiras entre outros.
+
+  //       Meus clientes buscam informações antes de fazer qualquer tratamento. Por isso, dou dicas bem objetivas para você, te ajudo a fazer as perguntas certas ao seu médico ou clinica, indico artigos, vídeos, sites e outras fonte com reputação sobre o assunto.  
+
+  //       Botox
+  //       Estética facial
+  //       Peeling
+  //       Dermatologia
+
+  //     `,
+  //     experiences: `
+  //       Dermatologista  Sun Clinique (clinica própria)
+  //       Profª  Escola de Estética e cosmetologia de Belo Horizonte 
+  //       Certificação  (Regency Beauty Institute  USA) 
+
+  //     `,
+  //     usesinflander: "5",
+  //     price: "1.40"
+    
+  //   }
+  // ]
+  return getProfiles();
 })
 
 var shuffleArray = function(array) {
@@ -63,6 +90,26 @@ App.controller('Fland2Controller', function ($scope, $route, $location, Allprofi
   //   }
   // });
 
+  function getProfiles() {
+    var query = firebase.database().ref("profiles").orderByKey();
+
+    query.once("value")
+      .then(function (snapshot) {
+        profiles = [];
+        snapshot.forEach(function (childSnapshot) {
+          var key = childSnapshot.key;
+          var childData = childSnapshot.val();
+
+          $scope.profiles.push({
+            key: key,
+            value: JSON.parse(childData)
+          })
+        });
+
+        return profiles;
+      });
+  }
+
 });
 
 App.controller('allProfilesController', function($scope, $route, $location, Allprofiles) {
@@ -73,5 +120,30 @@ App.controller('profileController', function($scope, $route, $location, Allprofi
   $scope.profile = Allprofiles.find( item => {
     return item.id == $routeParams.id;
   })
+
+  $scope.config = {
+      startDate: new Date(),
+      viewType: "Day"
+  };
+
+  $scope.events = [
+      {
+          start: new Date(),
+          end: new Date(),
+          id: DayPilot.guid(),
+          text: "Primeira consulta"
+      }
+  ];
+
+  $scope.navigatorConfig = {
+      selectMode: "day",
+      showMonths: 3,
+      skipMonths: 3,
+      onTimeRangeSelected: function(args) {
+          $scope.weekConfig.startDate = args.day;
+          $scope.dayConfig.startDate = args.day;                            
+          loadEvents();
+      }
+  };
 })
 

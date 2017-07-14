@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="adminFland">
+
+<head>
+  <title>Fland Admin</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- Angular dependencies  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-route.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.5/angular-sanitize.min.js"></script>
+
+    <!-- include summernote css/js-->
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.js"></script>
+</head>
+
+<body ng-controller="adminController">
+
+  <div class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Fland Admin</a>
+        </div>
+
+        <button type="button" class="btn btn-primary navbar-btn pull-right" data-toggle="modal" data-target="#addProfile">
+          Add profile
+        </button>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Descrição</th>
+              <th>Preço</th>
+              <th>Opções</th>
+            </tr>
+          </thead>
+          <tbody>
+            <div>
+              <tr ng-repeat="profile in profiles">
+                <td>{{profile.value.id}}</td>
+                <td>{{profile.value.name}}</td>
+                <td ng-bind-html="renderHtml(profile.value.description)"></td>
+                <td>{{profile.value.price | currency}}</td>
+                <td>
+                  <button type="button" class="btn" data-toggle="modal" data-target="#editProfile" data-id="{{profile.key}}">Edit</button>
+                  <button type="button" class="btn btn-danger" ng-click="deleteProfile(profile.key)">Delete</button>
+                </td>
+              </tr>
+            </div>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+      <p class="navbar-text pull-left">© 2017 - Fland Admin</p>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="addProfile" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Add Profile</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" required>
+          </div>
+          <div class="form-group">
+            <label for="name">Profile title:</label>
+            <input type="text" class="form-control" id="title" required>
+          </div>
+          <div class="form-group">
+            <label for="name">Description:</label>
+            <div id="description"></div>
+          </div>
+          
+          <div class="form-group">
+            <label for="name">Expertise:</label>
+            <div id="expertise"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="name">Experiences:</label>
+            <div id="profissional-experiences"></div>
+          </div>
+          
+          <div class="form-group">
+            <label for="name">Experience in years:</label>
+            <input type="number" class="form-control" id="experienceinyears" required>
+          </div>
+          <div class="form-group">
+            <label for="name">Value (R$):</label>
+            <input type="text" class="form-control" id="price" required>
+          </div>
+          <div class="form-group">
+            <label for="name">How to contact:</label>
+            <div id="howtocontact"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="saveProfile()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Modal -->
+  <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Edit Profile</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="profilename">
+          </div>
+          <div class="form-group">
+            <label for="name">Profile title:</label>
+            <input type="text" class="form-control" id="profiletitle">
+          </div>
+          <div class="form-group">
+            <label for="name">Description:</label>
+            <div id="profiledescription"></div>
+          </div>
+          
+          <div class="form-group">
+            <label for="name">Expertise:</label>
+            <div id="profileexpertise"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="name">Experiences:</label>
+            <div id="profileprofissional-experiences"></div>
+          </div>
+          
+          <div class="form-group">
+            <label for="name">Experience in years:</label>
+            <input type="number" class="form-control" id="profileexperienceinyears">
+          </div>
+          <div class="form-group">
+            <label for="name">Value (R$):</label>
+            <input type="text" class="form-control" id="profileprice">
+          </div>
+          <div class="form-group">
+            <label for="name">How to contact:</label>
+            <div id="profilehowtocontact"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="updateProfile()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Angular Controller -->
+  <script src="js/admin.controller.js"></script>
+
+  <script>
+    $('#howtocontact, #profissional-experiences, #description, #expertise').summernote({
+      height: 200, // set editor height
+      minHeight: null, // set minimum height of editor
+      maxHeight: null, // set maximum height of editor
+      toolbar: [
+        // [groupName, [list of button]]
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['font', ['strikethrough', 'superscript', 'subscript']],
+        ['fontsize', ['fontsize']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['height', ['height']]
+      ]
+    })
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAjkqV4SjY4l6gm75KW4pw8PeCMKOJWuHA",
+      authDomain: "fland2-63dd0.firebaseapp.com",
+      databaseURL: "https://fland2-63dd0.firebaseio.com",
+      projectId: "fland2-63dd0",
+      storageBucket: "fland2-63dd0.appspot.com",
+      messagingSenderId: "687200524533"
+    };
+    firebase.initializeApp(config);
+  </script>
+</body>
+
+</html>
