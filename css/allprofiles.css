@@ -44,3 +44,7 @@
   display: block;
   margin: 0px auto;
 }
+
+.text-white *{
+  color: white !important;
+}

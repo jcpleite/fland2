@@ -9,27 +9,30 @@
             <div class="col-sm-12">
               <div>
                 <br>
-                <img ng-src="{{ profile.photo }}" class="img-responsive img-thumbnail img-circle img-center">
+                <img src="../img/team/profile.png" class="img-responsive img-thumbnail img-circle img-center" alt="">
                 <br>
                 <div  class="align-center">
                   <jk-rating-stars max-rating="5" rating="ctrl.rating" read-only="ctrl.readOnly" on-rating="ctrl.onRating(rating)" ></jk-rating-stars>
                 </div>
                 
-                <h2 class="text-center">{{profile.name}}</h2>
+                <h2 class="text-center">{{profile.value.name}}</h2>
 
                 <br>
-                <p>{{profile.expertise}}</p>
+                <p ng-bind-html="renderHtml(profile.value.expertise)" class="text-white"></p>
               </div>
             </div>
             <div class="col-md-12">
-              <p>{{profile.experienceinyears}} anos de experiência</p>
+              <p>{{profile.value.experienceinyears}} anos de experiência</p>
               <br>
               <strong><h5>Histórico profissional</h5></strong>
-              <p>{{profile.experiences}}</p>
+              <p ng-bind-html="renderHtml(profile.value.professionalExperiences)"></p>
               <br>
-              <p>{{profile.usesinflander}} atendimentos Fland desde 2016</p>
+              <p>0 atendimentos Fland desde 2016</p>
               <br>
-              <p>R$ {{profile.price}} por minuto</p>
+              <p>R$ {{profile.value.price}} por minuto</p>
+              <br>
+              <b>Contato:</b>
+              <p ng-bind-html="renderHtml(profile.value.howtocontact)"></p>
               <br>
             </div>
           </div>
@@ -44,10 +47,10 @@
         <div class="col-sm-8" id="left-panel">
           <div class="row">
             <div class="col-md-12">
-              <h1>{{profile.shortdescription}}</h1>
+              <h3>{{profile.value.title}}</h3>
               <br>
               <br>
-              <p>{{profile.description}}</p>
+              <p ng-bind-html="renderHtml(profile.value.description)"></p>
               <br>
             </div>
           </div>
