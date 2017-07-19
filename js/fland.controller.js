@@ -120,11 +120,12 @@ App.controller('profileController', function ($scope, $route, $location, $routeP
 
 
       });
-      $scope.$apply();
 
       $scope.profile = database.find(item => {
         return item.value.id == $routeParams.id;
       })
+
+      $scope.$apply();
 
       // $route.reload();
     });
